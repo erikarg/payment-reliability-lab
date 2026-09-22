@@ -1,26 +1,203 @@
 @import "tailwindcss";
 
+@theme {
+  /* Cool graphite. The surface stays neutral so every colour on top of it is
+     signal, and it sits on the opposite axis from any warm-wood identity. */
+  --color-canvas: #0b0d0f;
+  --color-surface: #131619;
+  --color-raised: #1b1f24;
+  --color-hairline: #262b31;
+  --color-ink: #e6eaef;
+  --color-muted: #98a2ae;
+  --color-faint: #616b78;
+
+  /* Lime means "you, acting": the run button, the active tab, focus, the mark,
+     and outbound requests in the diagram. It is never a payment state, so the
+     two vocabularies can never be mistaken for one another. */
+  --color-accent: #c3f53c;
+  --color-accent-ink: #0f1400;
+
+  --color-state-created: #7b8694;
+  --color-state-processing: #56a8f5;
+  --color-state-authorized: #a78bfa;
+  --color-state-pending: #f5b544;
+  --color-state-captured: #2dd4bf;
+  --color-state-completed: #22c55e;
+  --color-state-declined: #f472b6;
+  --color-state-failed: #f4544f;
+
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * The form vocabulary is a region, not a box: background and space separate
+ * things, and a hairline appears only where a genuine boundary exists.
+ */
+.surface {
+  background: var(--color-surface);
+}
+
+.inset {
+  background: var(--color-raised);
+  border-radius: 10px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+.btn {
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--color-raised);
+  color: var(--color-muted);
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--color-raised) 60%, var(--color-ink) 10%);
+  color: var(--color-ink);
+}
+
+.btn[aria-pressed="true"] {
+  background: color-mix(in oklab, var(--color-accent) 16%, transparent);
+  color: var(--color-accent);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--color-accent) 85%, white 15%);
+  color: var(--color-accent-ink);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.field {
+  background: var(--color-raised);
+  border-radius: 8px;
+  box-shadow: inset 0 -1px 0 var(--color-hairline);
+  transition: box-shadow 140ms ease;
+}
+
+.field:focus-within {
+  box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-hairline) transparent;
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: 4px;
+}
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  height: 16px;
+  width: 28px;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--color-hairline);
+  padding: 2px;
+  transition: background 160ms ease;
+}
+
+.switch::after {
+  content: "";
+  height: 12px;
+  width: 12px;
+  border-radius: 999px;
+  background: var(--color-faint);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+input:checked + .switch {
+  background: color-mix(in oklab, var(--color-state-failed) 50%, transparent);
+}
+
+input:checked + .switch::after {
+  transform: translateX(12px);
+  background: var(--color-state-failed);
+}
+
+input:focus-visible + .switch {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@keyframes refusal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.refusal-enter {
+  animation: refusal-enter 320ms ease-out;
+}
+
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.drawer-in {
+  animation: drawer-in 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
