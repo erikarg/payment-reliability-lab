@@ -465,6 +465,11 @@ switching language without disturbing the payment underneath.
 They read the diagram through label *keys* (`[data-arrow="authorize"]`), not
 through the words on screen, so the suite is not tied to one language.
 
+**CI** (`.github/workflows/ci.yml`) runs `npm run lint`, `npm run typecheck` and
+`npm run test` on every push and pull request to `main`. The end-to-end suite is
+not part of CI, because it needs a browser binary; run it locally with
+`npx playwright install chromium` once, then `npm run test:e2e`.
+
 ---
 
 ## Deploying
