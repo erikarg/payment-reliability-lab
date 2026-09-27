@@ -485,5 +485,5 @@ Import the repository on Vercel and deploy. The defaults are correct.
 
 ## Licence
 
-MIT. The bundled typefaces are under the SIL Open Font License 1.1 —
-see `src/fonts/NOTICE.md`.
+MIT — see [`LICENSE`](LICENSE). The bundled typefaces are under the SIL Open
+Font License 1.1 — see `src/fonts/NOTICE.md`.
