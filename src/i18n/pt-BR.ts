@@ -23,6 +23,7 @@ export const ptBR: Dictionary = {
     seed: 'Seed',
     newSeed: 'Nova seed',
     speed: 'Velocidade',
+    speedInstant: 'Instantâneo',
     run: 'Executar pagamento',
     running: 'Executando…',
     determinism: 'A mesma seed com as mesmas falhas produz a mesma execução, incluindo os atrasos.',

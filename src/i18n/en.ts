@@ -29,6 +29,7 @@ export const en = {
     seed: 'Seed',
     newSeed: 'New seed',
     speed: 'Speed',
+    speedInstant: 'Instant',
     run: 'Run payment',
     running: 'Running…',
     determinism: 'The same seed and the same faults produce the same run, delays included.',

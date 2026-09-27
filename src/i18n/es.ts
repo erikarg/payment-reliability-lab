@@ -23,6 +23,7 @@ export const es: Dictionary = {
     seed: 'Seed',
     newSeed: 'Nueva seed',
     speed: 'Velocidad',
+    speedInstant: 'Instantáneo',
     run: 'Ejecutar pago',
     running: 'Ejecutando…',
     determinism: 'La misma seed con los mismos fallos produce la misma ejecución, demoras incluidas.',

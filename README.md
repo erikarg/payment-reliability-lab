@@ -367,8 +367,8 @@ editable: the same seed with the same faults produces the same run, delays
 included.
 
 **An injected clock** divides every delay by a speed factor: `1x` is real time,
-`10x` divides by ten, and the setting labelled `100x` removes the delays
-altogether (each wait becomes a zero-length timer).
+`10x` divides by ten, and `Instant` removes the delays altogether (each wait
+becomes a zero-length timer).
 The simulation computes honest timings (a 200ms backoff is written as 200ms) and
 the speed setting decides how much of that a human sits through. Nothing lies
 about its own numbers, and the relative order of delays is preserved at every

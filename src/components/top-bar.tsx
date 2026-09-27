@@ -6,10 +6,12 @@ import { labStore, type SessionState } from '@/infrastructure/store'
 import { LocaleSwitcher } from './locale-switcher'
 import { Wordmark } from './wordmark'
 
-const SPEEDS: { value: SpeedSetting; label: string }[] = [
+// 'instant' removes the delays entirely (see SPEED_DIVISOR), so it gets a word,
+// not a multiplier.
+const SPEEDS: { value: SpeedSetting; label?: string }[] = [
   { value: 'realtime', label: '1x' },
   { value: 'fast', label: '10x' },
-  { value: 'instant', label: '100x' },
+  { value: 'instant' },
 ]
 
 function exportSession(filename: string, payload: unknown): void {
@@ -73,7 +75,7 @@ export function TopBar({ session }: { session: SessionState }) {
                   : 'text-faint hover:text-ink'
               }`}
             >
-              {speed.label}
+              {speed.label ?? d.simulator.speedInstant}
             </button>
           ))}
         </div>
